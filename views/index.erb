@@ -3,8 +3,12 @@
 <head>
   <meta charset="UTF-8">
   <title>account_book</title>
+  <script src="/assets/js/Chart.min.js"></script>
 </head>
 <body>
+  <% unless @items.empty? %>
+    <canvas id="graph"></canvas>
+  <% end %>
   <h3>合計:<%= @total %>円</h3>
   <div>
     <form action="/create" method="post">
@@ -57,6 +61,29 @@
       </div>
     <% end %>
   </div>
-
+  <script>
+    ctx = document.getElementById("graph");
+    ctx.width = 500;
+    clr = ['lightsalmon', 'palegreen', 'lightskyblue', 'plum', 'silver', 'pink'];
+    var price = [], colors = [], labels = [];
+    <% @items.each_with_index do |item, idx| %>
+      price.push(<%= item.price %>);
+      labels.push('<%= item.title %>');
+      colors.push(clr[<%= idx % 6 %>]);
+    <% end %>
+    var data = {
+      labels: labels,
+      datasets:[
+      {
+        data:price,
+        backgroundColor: colors
+      }]
+    };
+    var myDoughnut = new Chart(ctx,{
+      type: 'doughnut',
+      data: data,
+      options: { responsive: false }
+    });
+  </script>
 </body>
 </html>
