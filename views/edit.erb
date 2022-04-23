@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <title>account_book</title>
+</head>
+<body>
+    <div>
+        <h1>編集ページ</h1>
+        <form action="/renew/<%= @item.id %>" method="post">
+            <div>
+                <label for="title">内容</label>
+                <input type="text" name="title" value="<%= @item.title %>">
+            </div>
+            <div>
+                <label for="price">金額</label>
+                <input type="text" name="price" value="<%= @item.price %>">
+            </div>
+            <input type="submit" value="編集完了">
+        </form>
+    </div>
+</body>
+</html>
