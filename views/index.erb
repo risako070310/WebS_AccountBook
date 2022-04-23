@@ -16,12 +16,31 @@
         <label for="price">金額</label>
         <input type="text" name="price" id="price">
       </div>
+      <div>
+        <label for="category">カテゴリー</label>
+        <select name="category" id="category">
+          <% @categories.each do |category| %>
+            <option value="<%= category.id %>"><%= category.name %></option>
+          <% end %>
+        </select>
+      </div>
       <input type="submit" value="追加">
     </form>
   </div>
   
   <div>
+    <% @categories.each do |category| %>
+      <a href="/category/<%= category.id %>"><%= category.name %></a>
+    <% end %>
+  </div>
+  
+  <% if @category_name.present? %>
+    <h2><%= @category_name %></h2>
+  <% end %>
+  
+  <div>
     <% @items.each do |item| %>
+      <p><%= item.category.try(:name) %></p>
       <div>
         <p><%= item.title %></p>
         <p><%= item.price %>円</p>
